@@ -13,7 +13,10 @@ python3.10 -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
+python -c "import mc_parser, eval_output_policy; print('local modules: OK')"
 ```
+
+`mc_parser`는 외부 pip 패키지가 아니라 이 저장소의 `code/evaluation/mc_parser.py`다. `requirements.txt`의 `-e .`가 평가 코드와 설정 파일을 설치한다. 이미 저장소를 클론해 둔 경우에는 `git pull` 후 `python -m pip install -r requirements.txt`를 다시 실행한다.
 
 ## 실행
 

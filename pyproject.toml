@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mmmu-val-two-stage-repro"
+version = "0.1.0"
+description = "MMMU validation two-stage baseline evaluator"
+requires-python = ">=3.10,<3.15"
+
+[tool.setuptools]
+package-dir = {"" = "code/evaluation"}
+py-modules = [
+  "baseline_contract",
+  "eval_mmmu",
+  "eval_mmmu_pro",
+  "eval_output_policy",
+  "mc_parser",
+]
+packages = ["configs", "vendor"]
+
+[tool.setuptools.package-data]
+configs = ["*.json"]
+vendor = ["MMMU_LICENSE"]

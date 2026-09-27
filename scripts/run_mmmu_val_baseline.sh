@@ -38,6 +38,10 @@ if [ -d "$data_root" ]; then
 fi
 
 cd "$(dirname "$0")/.."
+if ! python -c 'import mc_parser, eval_output_policy' ; then
+  echo "Local evaluator modules are unavailable. Run: python -m pip install -r requirements.txt" >&2
+  exit 2
+fi
 if [ -e "$output_root/check" ] || [ -e "$output_root/run" ]; then
   echo "Output already exists. Choose a new --output-root." >&2
   exit 2
@@ -52,10 +56,10 @@ common=(
   --data-root "$data_root"
 )
 
-python -u code/evaluation/eval_output_policy.py "${common[@]}" \
+python -u -m eval_output_policy "${common[@]}" \
   --check-only --output-dir "$output_root/check"
 
-python -u code/evaluation/eval_output_policy.py "${common[@]}" \
+python -u -m eval_output_policy "${common[@]}" \
   --checked-inputs "$output_root/check" --output-dir "$output_root/run"
 
 python - "$output_root/run/summary.json" <<'PY'

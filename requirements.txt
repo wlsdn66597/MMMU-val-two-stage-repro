@@ -2,6 +2,8 @@
 # vLLM 0.28.0 is the CUDA 13.0 wheel on PyPI; PyTorch's matching wheel is
 # available from the official PyTorch index below.
 # This pins direct dependencies, not every transitive dependency in pip freeze.
+# The editable project install below makes local modules (including mc_parser)
+# importable without copying individual files or setting PYTHONPATH.
 --extra-index-url https://download.pytorch.org/whl/cu130
 torch==2.13.0+cu130
 vllm==0.28.0
@@ -10,3 +12,4 @@ datasets==5.0.1
 huggingface-hub==1.29.0
 Pillow==12.3.0
 numpy==2.2.6
+-e .
