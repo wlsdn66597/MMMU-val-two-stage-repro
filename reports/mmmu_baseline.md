@@ -23,8 +23,8 @@ peak VRAM은 모델 프로세스만의 정확한 최대 할당량이 아니라 �
 원 실행은 실험 저장소의 `scripts/run_two_stage_baseline4096.sh`가 MMMU val과 MMMU-Pro 세 조건을 순차 수행했다. 이 저장소에는 원 실행의 코드 해시와 일치하는 평가 코드 및 고정 프로필을 포함했다. 저장소를 클론하고 [README의 설치 절차](../README.md)를 마친 뒤, 아래 명령은 **같은 고정 프로필로 MMMU val만** 검사하고 실행한다. 두 변수에 해당 컴퓨터의 실제 snapshot 경로를 입력한다. 원본 서버의 절대경로는 필요하지 않다.
 
 ```bash
-MODEL_SNAPSHOT="/replace/with/model/snapshots/ebb281ec70b05090aa6165b016eac8ec08e71b17"
-MMMU_SNAPSHOT="/replace/with/MMMU/snapshots/98e6ac0cb9b7b2cd2c991b85a50762edc4aedc68"
+MODEL_SNAPSHOT=""
+MMMU_SNAPSHOT=""
 
 bash scripts/run_mmmu_val_baseline.sh \
   --model-path "$MODEL_SNAPSHOT" \

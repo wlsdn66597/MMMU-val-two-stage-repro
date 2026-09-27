@@ -17,11 +17,11 @@ python -m pip install -r requirements.txt
 
 ## 실행
 
-저장소 루트에서 실행한다. 모델은 Qwen3-VL-4B-Instruct의 revision `ebb281ec70b05090aa6165b016eac8ec08e71b17`, 데이터는 MMMU validation의 revision `98e6ac0cb9b7b2cd2c991b85a50762edc4aedc68`을 사용한다. 아래 두 변수의 `/replace/with/...` 부분만 **실행할 컴퓨터의 실제 snapshot 경로**로 바꾼다.
+저장소 루트에서 실행한다. 모델은 Qwen3-VL-4B-Instruct의 revision `ebb281ec70b05090aa6165b016eac8ec08e71b17`, 데이터는 MMMU validation의 revision `98e6ac0cb9b7b2cd2c991b85a50762edc4aedc68`을 사용한다. 아래 빈 따옴표 안에 **실행할 컴퓨터의 실제 snapshot 경로**를 각각 입력한다.
 
 ```bash
-MODEL_SNAPSHOT="/replace/with/model/snapshots/ebb281ec70b05090aa6165b016eac8ec08e71b17"
-MMMU_SNAPSHOT="/replace/with/MMMU/snapshots/98e6ac0cb9b7b2cd2c991b85a50762edc4aedc68"
+MODEL_SNAPSHOT=""
+MMMU_SNAPSHOT=""
 
 bash scripts/run_mmmu_val_baseline.sh \
   --model-path "$MODEL_SNAPSHOT" \
