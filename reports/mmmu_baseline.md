@@ -16,16 +16,19 @@
 | 추론 시간 | 약 136.5분 (900문항의 모델 호출 시간 합계) |
 | 총 소요 시간 | 약 138.8분 (모델 로딩·데이터 처리 포함) |
 | 의존성·환경 | [requirements.txt](../requirements.txt); Python 3.10.12; PyTorch 2.13.0+cu130, vLLM 0.28.0, Transformers 5.16.1, Datasets 5.0.1, NumPy 2.2.6, Pillow 12.3.0, huggingface-hub 1.29.0 |
-| 실행 커맨드 | `bash scripts/run_mmmu_val_baseline.sh --model-path Qwen/Qwen3-VL-4B-Instruct --data-root MMMU/MMMU --output-root results/mmmu_val_two_stage4096` ([스크립트](../scripts/run_mmmu_val_baseline.sh)) |
+| 실행 커맨드 | 아래 명령의 `MODEL_SNAPSHOT`·`MMMU_SNAPSHOT`을 실행 컴퓨터의 경로로 지정 ([스크립트](../scripts/run_mmmu_val_baseline.sh)) |
 
 peak VRAM은 모델 프로세스만의 정확한 최대 할당량이 아니라 다른 프로세스도 포함할 수 있는 GPU 전체 사용량의 표본 최고치다. 이 저장소의 `requirements.txt`에는 원 실행에서 확인한 직접 의존성 버전과 CUDA 13.0용 PyTorch wheel 출처를 기록했다. 실행 당시 전체 패키지 목록과 GPU·드라이버 기록은 원본 실행 폴더 `results/two_stage4096_v1/mmmu_val/`의 `requirements.freeze.txt`와 `environment.txt`에 저장되어 있으며 아직 이 저장소에 포함하지 않았다. 따라서 `requirements.txt`만으로 모든 간접 의존성까지 고정되지는 않는다.
 
-원 실행은 실험 저장소의 `scripts/run_two_stage_baseline4096.sh`가 MMMU val과 MMMU-Pro 세 조건을 순차 수행했다. 이 저장소에는 원 실행의 코드 해시와 일치하는 평가 코드 및 고정 프로필을 포함했다. 저장소를 클론하고 [README의 설치 절차](../README.md)를 마친 뒤, 아래 명령은 **같은 고정 프로필로 MMMU val만** 검사하고 실행한다. `--model-path`와 `--data-root`에는 Hugging Face repo ID 또는 실행 컴퓨터의 실제 snapshot 경로를 전달한다. 원본 서버의 절대경로는 필요하지 않다.
+원 실행은 실험 저장소의 `scripts/run_two_stage_baseline4096.sh`가 MMMU val과 MMMU-Pro 세 조건을 순차 수행했다. 이 저장소에는 원 실행의 코드 해시와 일치하는 평가 코드 및 고정 프로필을 포함했다. 저장소를 클론하고 [README의 설치 절차](../README.md)를 마친 뒤, 아래 명령은 **같은 고정 프로필로 MMMU val만** 검사하고 실행한다. 두 변수에 해당 컴퓨터의 실제 snapshot 경로를 입력한다. 원본 서버의 절대경로는 필요하지 않다.
 
 ```bash
+MODEL_SNAPSHOT="/replace/with/model/snapshots/ebb281ec70b05090aa6165b016eac8ec08e71b17"
+MMMU_SNAPSHOT="/replace/with/MMMU/snapshots/98e6ac0cb9b7b2cd2c991b85a50762edc4aedc68"
+
 bash scripts/run_mmmu_val_baseline.sh \
-  --model-path Qwen/Qwen3-VL-4B-Instruct \
-  --data-root MMMU/MMMU \
+  --model-path "$MODEL_SNAPSHOT" \
+  --data-root "$MMMU_SNAPSHOT" \
   --output-root results/mmmu_val_two_stage4096
 ```
 

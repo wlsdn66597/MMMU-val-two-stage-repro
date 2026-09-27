@@ -17,16 +17,19 @@ python -m pip install -r requirements.txt
 
 ## 실행
 
-저장소 루트에서 실행한다. 아래 값은 특정 컴퓨터의 경로가 아니라 Hugging Face 모델·데이터셋 ID다. 코드가 모델 revision `ebb281ec70b05090aa6165b016eac8ec08e71b17`과 MMMU revision `98e6ac0cb9b7b2cd2c991b85a50762edc4aedc68`을 고정해 내려받는다.
+저장소 루트에서 실행한다. 모델은 Qwen3-VL-4B-Instruct의 revision `ebb281ec70b05090aa6165b016eac8ec08e71b17`, 데이터는 MMMU validation의 revision `98e6ac0cb9b7b2cd2c991b85a50762edc4aedc68`을 사용한다. 아래 두 변수의 `/replace/with/...` 부분만 **실행할 컴퓨터의 실제 snapshot 경로**로 바꾼다.
 
 ```bash
+MODEL_SNAPSHOT="/replace/with/model/snapshots/ebb281ec70b05090aa6165b016eac8ec08e71b17"
+MMMU_SNAPSHOT="/replace/with/MMMU/snapshots/98e6ac0cb9b7b2cd2c991b85a50762edc4aedc68"
+
 bash scripts/run_mmmu_val_baseline.sh \
-  --model-path Qwen/Qwen3-VL-4B-Instruct \
-  --data-root MMMU/MMMU \
+  --model-path "$MODEL_SNAPSHOT" \
+  --data-root "$MMMU_SNAPSHOT" \
   --output-root results/mmmu_val_two_stage4096
 ```
 
-이미 받은 파일을 쓸 경우 `--model-path`와 `--data-root`에 해당 컴퓨터의 snapshot 디렉터리를 전달한다. 상대경로는 명령을 실행한 디렉터리를 기준으로 해석한다. 데이터 snapshot 디렉터리의 이름은 위 MMMU revision과 같아야 한다. 동일 기준선에는 위 모델 revision의 snapshot을 사용한다.
+상대경로를 전달하면 명령을 실행한 디렉터리를 기준으로 해석한다. 데이터 snapshot 디렉터리의 이름은 위 MMMU revision과 같아야 한다. 모델·데이터를 아직 내려받지 않았다면 두 경로 대신 Hugging Face ID `Qwen/Qwen3-VL-4B-Instruct`와 `MMMU/MMMU`를 각각 전달할 수도 있다. 이 경우 코드가 고정 revision을 내려받는다.
 
 스크립트는 먼저 900문항 입력을 확인하고 `--output-root/check/`에 기록한 다음 추론 결과를 `--output-root/run/`에 저장한다. 완료 시 `run/summary.json`과 `run/predictions.jsonl`을 확인한다. 기존 실행 결과와 프롬프트·채점 방식은 [기준선 보고서](reports/mmmu_baseline.md)에 정리했다.
 
